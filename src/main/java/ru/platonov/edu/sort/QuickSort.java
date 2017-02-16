@@ -23,14 +23,14 @@ public class QuickSort {
         int leftIndex = startMarginIndex;
         int rightIndex = endMarginIndex;
 
-        int pivotIndex = leftIndex + (rightIndex - leftIndex) / 2;
+        int pivot = mas[leftIndex + (rightIndex - leftIndex) / 2];
 
         while (leftIndex <= rightIndex) {
-            while (mas[leftIndex] < mas[pivotIndex]) {
+            while (mas[leftIndex] < pivot) {
                 leftIndex++;
             }
 
-            while (mas[rightIndex] > mas[pivotIndex]) {
+            while (mas[rightIndex] > pivot) {
                 rightIndex --;
             }
 
@@ -57,7 +57,9 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] mas = {3, 9, 5, 7, 2, 10};
+        //int[] mas = {3, 9, 5, 7, 2, 10};
+
+        int[] mas = {1, 3, 2, 9, 10, 3, 2, 1};
 
         new QuickSort(mas).sort();
 
