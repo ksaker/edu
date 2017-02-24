@@ -28,6 +28,7 @@ public class StreamApi {
         Stream.iterate(1, a -> a + 1); //Создание бесконечного стрима начиная от 1 с приращением на 1
         Stream.generate(() -> "a1"); //Генерирует стрим из одного элемента a1
 
+        //10
     }
 
     //Есть другое название, которое я не помню =(
@@ -50,10 +51,13 @@ public class StreamApi {
 //                .flatMapToDouble()
 //                .flatMapToLong()
                 .forEach(System.out::print); //Терминальная функция нужна только для вывода результата!
+
+        //14
     }
 
     public void terminal() {
         Stream<Integer> elementIntegerStream = Stream.of(1, 2, 3, 4, 5, 6);
+
         elementIntegerStream.findFirst().get();
         elementIntegerStream.findAny().get();
         elementIntegerStream.collect(Collectors.toList());
@@ -72,6 +76,7 @@ public class StreamApi {
         elementIntegerStream.toArray();
         elementIntegerStream.reduce((a1, a2) -> a1 + a2);
 
+        //13
     }
 
     public void shortCircuit(){
@@ -80,6 +85,8 @@ public class StreamApi {
         System.out.println(elementIntegerStream.anyMatch(a -> a == 2));
         System.out.println(elementIntegerStream.findFirst().get());
         System.out.println(elementIntegerStream.findAny().get());
+
+        //3
     }
 
     public void math(){
@@ -91,6 +98,8 @@ public class StreamApi {
 
         elementIntegerStream.average();
         Stream<Integer> stream = elementIntegerStream.mapToObj(Integer::new); //Возвращает обратно в объектный стрим
+
+        //4
     }
 
     public void helpFullMethods() {
@@ -99,6 +108,8 @@ public class StreamApi {
         elementIntegerStream.isParallel(); //показывает параллельный стрим или нет.
         elementIntegerStream.parallel();    //выставляет свойство стрима как параллельный
         elementIntegerStream.sequential(); // выставляет свойство стрима как последовательный
+
+        //3
     }
 
     public static void main(String[] args) {
