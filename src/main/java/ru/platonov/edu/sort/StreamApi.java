@@ -69,6 +69,7 @@ public class StreamApi {
 
         elementIntegerStream.max(Integer::compareTo).get();
         elementIntegerStream.min(Integer::compareTo).get();
+        IntStream.empty().average();
 
         elementIntegerStream.forEach(System.out::print);
         elementIntegerStream.forEachOrdered(System.out::print);
@@ -76,7 +77,7 @@ public class StreamApi {
         elementIntegerStream.toArray();
         elementIntegerStream.reduce((a1, a2) -> a1 + a2);
 
-        //13
+        //14
     }
 
     public void shortCircuit(){
