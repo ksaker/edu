@@ -16,8 +16,8 @@ public class StreamApi {
 
     public void creationStream() throws IOException {
         int[] integerArray = {1,2,3,4,5,6};
-
         Collection<String> stringCollection = Arrays.asList("string1", "string2", "string3");
+
         Stream<String> streamFromCollection = stringCollection.stream();
         Stream<String> parallelStreamFromCollection = stringCollection.parallelStream();
         Stream<Integer> elementIntegerStream = Stream.of(1, 2, 3, 4, 5, 6);
@@ -28,7 +28,7 @@ public class StreamApi {
         Stream.iterate(1, a -> a + 1); //Создание бесконечного стрима начиная от 1 с приращением на 1
         Stream.generate(() -> "a1"); //Генерирует стрим из одного элемента a1
 
-        //10
+        //9
     }
 
     //Есть другое название, которое я не помню =(
