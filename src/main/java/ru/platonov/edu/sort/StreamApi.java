@@ -24,9 +24,9 @@ public class StreamApi {
         IntStream stream = Arrays.stream(integerArray);
         Stream<String> lines = Files.lines(Paths.get("C:/text.txt"));
         IntStream chars = "abc".chars();
-        Stream.builder().add(1).add(2).add(3).build();
-        Stream.iterate(1, a -> a + 1); //Создание бесконечного стрима начиная от 1 с приращением на 1
-        Stream.generate(() -> "a1"); //Генерирует стрим из одного элемента a1
+        Stream<Integer> builder = Stream.<Integer>builder().add(1).add(2).add(3).build();
+        Stream<Integer> iterate = Stream.iterate(1, a -> a + 1);//Создание бесконечного стрима начиная от 1 с приращением на 1
+        Stream<String> generate = Stream.generate(() -> "a1");//Генерирует стрим из одного элемента a1
 
         //9
     }
