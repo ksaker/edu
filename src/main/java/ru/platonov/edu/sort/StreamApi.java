@@ -114,9 +114,6 @@ public class StreamApi {
     }
 
     public static void main(String[] args) {
-        Stream<Integer> elementIntegerStream = Stream.of(1, 2, 3, 4, 5);
-
-        System.out.println(elementIntegerStream.reduce((a1, a2) -> a1 * a2).get());
 
     }
 

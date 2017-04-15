@@ -5,6 +5,11 @@ repositories {
     mavenCentral()
 }
 
+dependencies{
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.9.Final'
+}
+
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.0'
 }
