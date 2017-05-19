@@ -104,6 +104,71 @@ public class QuickSort {
 
     }
 
+    public void hollandSort() {
+        hollandFlagSort(0, mas.length - 1);
+    }
+
+    //holland flag problem
+    private void hollandFlagSort(int startMarginIndex, int endMarginIndex) {
+        int leftIndex = startMarginIndex;
+        int leftEquals = startMarginIndex;
+        int rightIndex = endMarginIndex;
+        int rightEquals = endMarginIndex;
+
+        int pivot = mas[leftIndex + (rightIndex - leftIndex) / 2];
+
+        while (leftIndex <= rightIndex) {
+            while (mas[leftIndex] < pivot) {
+                leftIndex++;
+            }
+
+            while (mas[rightIndex] > pivot) {
+                rightIndex--;
+            }
+
+            if (leftIndex <= rightIndex) {
+                swap(leftIndex, rightIndex);
+
+                if(mas[leftIndex] == pivot) {
+                    swap(leftIndex, leftEquals);
+                    leftEquals++;
+                }
+
+                if(mas[rightIndex] == pivot) {
+                    swap(rightIndex, rightEquals);
+                    rightEquals--;
+                }
+
+                leftIndex++;
+                rightIndex--;
+            }
+        }
+
+        for(int i = startMarginIndex; i < leftEquals; i++, rightIndex --) {
+            if(rightIndex <= i) {
+                break;
+            }
+            swap(i, rightIndex);
+        }
+
+        for(int i = endMarginIndex; i > rightEquals; i--, leftIndex++) {
+            if(leftIndex >= endMarginIndex) {
+                break;
+            }
+            swap(i, leftIndex);
+        }
+
+        if(leftIndex < endMarginIndex) {
+            hollandFlagSort(leftIndex, endMarginIndex);
+        }
+
+        if(rightIndex > startMarginIndex) {
+            hollandFlagSort(startMarginIndex, rightIndex);
+        }
+
+    }
+
+
     public static void main(String[] args) {
         //int[] mas = {3, 9, 5, 7, 2, 10};
 
@@ -115,9 +180,16 @@ public class QuickSort {
 
         int[] mas2 = {1, 3, 2, 9, 10, 3, 2, 1};
 
-        new QuickSort(mas).iterativeSort();
+        new QuickSort(mas2).iterativeSort();
 
-        System.out.println(Arrays.toString(mas));
+        System.out.println(Arrays.toString(mas2));
+
+        int[] mas3 = {2, 1, 4, 2, 10, 3, 2, 9, 2, 1, 4, 9, 10, 3, 4, 10, 2};
+
+        new QuickSort(mas2).hollandSort();
+
+        System.out.println(Arrays.toString(mas2));
+
     }
 
     private static class Range {
