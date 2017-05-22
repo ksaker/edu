@@ -7,7 +7,7 @@ import java.util.Stack;
  * Created by platonov on 14/02/17.
  */
 public class QuickSort {
-    final private int [] mas;
+    private final int [] mas;
 
     public QuickSort(int [] mas) {
         this.mas = mas;
@@ -71,7 +71,7 @@ public class QuickSort {
             int leftIndex = range.getLeftMarginIndex();
             int rightIndex = range.getRightMarginIndex();
 
-            if (leftIndex <= rightIndex) {
+            if (rightIndex <= leftIndex) {
                 continue;
             }
 
@@ -110,6 +110,11 @@ public class QuickSort {
 
     //holland flag problem
     private void hollandFlagSort(int startMarginIndex, int endMarginIndex) {
+
+        if(endMarginIndex <= startMarginIndex) {
+            return;
+        }
+
         int leftIndex = startMarginIndex;
         int leftEquals = startMarginIndex;
         int rightIndex = endMarginIndex;
@@ -126,51 +131,41 @@ public class QuickSort {
                 rightIndex--;
             }
 
-            if (leftIndex <= rightIndex) {
-                swap(leftIndex, rightIndex);
-
-                if(mas[leftIndex] == pivot) {
-                    swap(leftIndex, leftEquals);
-                    leftEquals++;
-                }
-
-                if(mas[rightIndex] == pivot) {
-                    swap(rightIndex, rightEquals);
-                    rightEquals--;
-                }
-
-                leftIndex++;
-                rightIndex--;
-            }
-        }
-
-        for(int i = startMarginIndex; i < leftEquals; i++, rightIndex --) {
-            if(rightIndex <= i) {
+            if (leftIndex >= rightIndex) {
                 break;
             }
+
+            swap(leftIndex, rightIndex);
+
+            if (mas[leftIndex] == pivot) {
+                swap(leftIndex, leftEquals);
+                leftEquals++;
+            }
+
+            if (mas[rightIndex] == pivot) {
+                swap(rightIndex, rightEquals);
+                rightEquals--;
+            }
+
+            leftIndex++;
+            rightIndex--;
+        }
+
+        for(int i = leftEquals - 1; i >= startMarginIndex; i--, rightIndex --) {
             swap(i, rightIndex);
         }
 
-        for(int i = endMarginIndex; i > rightEquals; i--, leftIndex++) {
-            if(leftIndex >= endMarginIndex) {
-                break;
-            }
-            swap(i, leftIndex);
+        //good
+        for(int j = rightEquals + 1; j <= endMarginIndex; j++, leftIndex++) {
+            swap(j, leftIndex);
         }
 
-        if(leftIndex < endMarginIndex) {
-            hollandFlagSort(leftIndex, endMarginIndex);
-        }
-
-        if(rightIndex > startMarginIndex) {
-            hollandFlagSort(startMarginIndex, rightIndex);
-        }
-
+        hollandFlagSort(leftIndex, endMarginIndex);
+        hollandFlagSort(startMarginIndex, rightIndex);
     }
 
-
     public static void main(String[] args) {
-        //int[] mas = {3, 9, 5, 7, 2, 10};
+//        int[] mas = {3, 9, 5, 7, 2, 10};
 
         int[] mas = {1, 3, 2, 9, 10, 3, 2, 1};
 
@@ -186,9 +181,11 @@ public class QuickSort {
 
         int[] mas3 = {2, 1, 4, 2, 10, 3, 2, 9, 2, 1, 4, 9, 10, 3, 4, 10, 2};
 
-        new QuickSort(mas2).hollandSort();
+        int[] mas4 = {1, 3, 2, 9, 10, 3, 2, 1};
 
-        System.out.println(Arrays.toString(mas2));
+        new QuickSort(mas3).hollandSort();
+
+        System.out.println(Arrays.toString(mas3));
 
     }
 
