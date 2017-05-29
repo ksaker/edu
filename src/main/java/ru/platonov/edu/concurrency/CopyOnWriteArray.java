@@ -34,12 +34,8 @@ public class CopyOnWriteArray<T> {
         } else {
             newArray = new Object[mas.length+1];
 
-            if (index == 0) {
-                System.arraycopy(mas, 0, newArray, 1, mas.length);
-            } else {
-                System.arraycopy(mas, 0, newArray, 0, index);
-                System.arraycopy(mas, index, newArray, index + 1, mas.length - index);
-            }
+            System.arraycopy(mas, 0, newArray, 0, index);
+            System.arraycopy(mas, index, newArray, index + 1, mas.length - index);
         }
 
         newArray[index] = value;
