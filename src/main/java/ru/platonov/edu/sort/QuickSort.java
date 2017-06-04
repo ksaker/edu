@@ -21,6 +21,17 @@ public class QuickSort {
     }
 
     private void sort(int startMarginIndex, int endMarginIndex) {
+        if(startMarginIndex >= endMarginIndex) {
+            return;
+        }
+
+        Range partition = partition(startMarginIndex, endMarginIndex);
+
+        sort(partition.getLeftIndex(), endMarginIndex);
+        sort(startMarginIndex, partition.getRightIndex());
+    }
+
+    private Range partition(int startMarginIndex, int endMarginIndex) {
         int leftIndex = startMarginIndex;
         int rightIndex = endMarginIndex;
 
@@ -42,20 +53,31 @@ public class QuickSort {
             }
         }
 
-        if(leftIndex < endMarginIndex) {
-            sort(leftIndex, endMarginIndex);
-        }
-
-        if(rightIndex > startMarginIndex) {
-            sort(startMarginIndex, rightIndex);
-        }
-
+        return new Range(leftIndex, rightIndex);
     }
 
     private void swap(int leftIndex, int rightIndex) {
         int tmp = mas[leftIndex];
         mas[leftIndex] = mas[rightIndex];
         mas[rightIndex] = tmp;
+    }
+
+    private static class Range {
+        private final int leftIndex;
+        private final int rightIndex;
+
+        private Range(int leftIndex, int rightIndex) {
+            this.leftIndex = leftIndex;
+            this.rightIndex = rightIndex;
+        }
+
+        public int getLeftIndex() {
+            return leftIndex;
+        }
+
+        public int getRightIndex() {
+            return rightIndex;
+        }
     }
 
     public void iterativeSort() {
@@ -68,38 +90,17 @@ public class QuickSort {
 
         while(!rangeStack.isEmpty()) {
             Range range = rangeStack.pop();
-            int leftIndex = range.getLeftMarginIndex();
-            int rightIndex = range.getRightMarginIndex();
+            int leftIndex = range.getLeftIndex();
+            int rightIndex = range.getRightIndex();
 
             if (rightIndex <= leftIndex) {
                 continue;
             }
 
-            int pivot = mas[leftIndex + (rightIndex - leftIndex) / 2];
+            Range partition = partition(leftIndex, rightIndex);
 
-            while (leftIndex <= rightIndex) {
-                while (mas[leftIndex] < pivot) {
-                    leftIndex++;
-                }
-
-                while (mas[rightIndex] > pivot) {
-                    rightIndex--;
-                }
-
-                if (leftIndex <= rightIndex) {
-                    swap(leftIndex, rightIndex);
-                    leftIndex++;
-                    rightIndex--;
-                }
-            }
-
-            if(leftIndex < range.getRightMarginIndex()) {
-               rangeStack.push(new Range(leftIndex, range.getRightMarginIndex()));
-            }
-
-            if(rightIndex > range.getLeftMarginIndex()) {
-               rangeStack.push(new Range(range.getLeftMarginIndex(), rightIndex));
-            }
+            rangeStack.push(new Range(partition.getLeftIndex(), range.getRightIndex()));
+            rangeStack.push(new Range(range.getLeftIndex(), partition.getRightIndex()));
         }
 
     }
@@ -189,21 +190,4 @@ public class QuickSort {
 
     }
 
-    private static class Range {
-        private final int leftMarginIndex;
-        private final int rightMarginIndex;
-
-        private Range(int leftMarginIndex, int rightMarginIndex) {
-            this.leftMarginIndex = leftMarginIndex;
-            this.rightMarginIndex = rightMarginIndex;
-        }
-
-        public int getLeftMarginIndex() {
-            return leftMarginIndex;
-        }
-
-        public int getRightMarginIndex() {
-            return rightMarginIndex;
-        }
-    }
 }
