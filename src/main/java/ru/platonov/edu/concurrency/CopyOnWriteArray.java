@@ -1,5 +1,6 @@
 package ru.platonov.edu.concurrency;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -29,8 +30,7 @@ public class CopyOnWriteArray<T> {
 
         Object [] newArray;
         if (index >= mas.length) {
-            newArray = new Object[index + 1];
-            System.arraycopy(mas, 0, newArray, 0, mas.length);
+            newArray = Arrays.copyOf(mas, index + 1);
         } else {
             newArray = new Object[mas.length+1];
 
